@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orden recibida</title>
+    <title>{{ email_title }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,65 +30,21 @@
             max-width: 100%;
         }
 
-        .order-number {
-            text-align: right;
-            font-size: 10px;
-            margin: 10px 30px 0 0;
-            padding-right: 30px;
+        .soyconspiracion {
+            display: block;
+            margin: 50px auto 30px auto;
+            width: 100px;
+            height: auto;
         }
-
-        .bold-text {
-            font-weight: bold;
-        }
-
         .confirmation {
-            margin: 25px 50px 20px 50px;
             text-align: center;
             font-size: 12px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
-        .soyconspiracion {
-            display: block;
-            margin: 30px auto 0 auto;
-            width: 100px;
-            height: auto;
-        }
 
-        .order-summary,
-        .payment-delivery {
-            margin: 25px 50px 20px 50px;
-            text-align: center;
-            font-size: 12px;
-        }
-
-        .order-details {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 20px 30px;
-            text-align: left;
-        }
-
-        .order-image {
-            width: auto;
-            height: 140px;
-            border: 1px solid #ccc;
-            border-radius: 15px;
-            padding: 0 20px;
-        }
-
-        .order-info {
-            flex-grow: 1;
-            margin-left: 10px;
-            font-size: 12px;
-        }
-
-        .order-summary p,
-        .payment-delivery p {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 30px;
-        }
+        .confirmation p {
+            margin: 15px 30px 0px 30px;
+        }      
 
         hr {
             width: 90%;
@@ -129,69 +85,24 @@
 <body>
     <table>
         <tr class="header">
-            <td colspan="2"><img src="{{ asset('src/img/ordenRecibida.png') }}" alt="Orden recibida"></td>
+            <td colspan="2"><img src="{{ 'welcome.png' | asset_url }}" alt="Welcome"></td>
         </tr>
         <tr>
             <td colspan="2">
                 <hr>
             </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="order-number bold-text">ORDEN NO. 57231</td>
         </tr>
         <tr>
             <td colspan="2" class="confirmation">
-                <p>Hola Michelle</p><br>
-                <p>Nos encanta que hayas elegido a Conspiración, donde cada vestido y prenda cuenta una historia y cada elección refleja tu estilo. Te mantendremos informada sobre el estado de tu pedido y te avisaremos tan pronto como esté listo para ser enviado.</p>
-                <p>Si tienes alguna pregunta o necesitas asistencia, estamos aquí para ayudarte.</p>
-                <p>Gracias por ser parte de la Conspiración</p><br>
-                <p>Con cariño</p>
-                <p>Equipo Conspiración</p>
+                <p>Hola {{ customer.first_name }}</p><br>
+                <p>Bienvenida a la comunidad Conspiración, un lugar donde miles de mujeres nos mantenemos informadas acerca  de noticias de moda, promociones y  lo mejor de nuestra colección. </p>
+                <p>Si no solicitaste unirte a nuestra lista o no estás seguro/a de por qué recibiste este correo, puedes hacer click en unsubscribe en la parte inferior de este correo.</p>
+                <p>No estarás suscrito/a si no confirmas tu registro.</p>
+                <p>Si tienes alguna pregunta, puedes responder a este correo o contactarnos en: care@conspiracionmoda.com</p>
             </td>
         </tr>
         <tr>
-            <td colspan="2"><img src="{{ asset('src/img/soyconspiracion.png') }}" alt="#SoyConspiración" class="soyconspiracion"></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <hr>
-            </td>
-        </tr>
-        <tr class="order-details">
-            <td><img src="{{ asset('src/img/dress.png') }}" alt="Vestido" class="order-image"></td>
-            <td class="order-info">
-                <p>Vestido de satín, Cherry</p>
-                <p>2,980 MXM x1</p>
-                <p>Rojo / XS (2) Nuevo</p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="order-summary">
-                <p class="bold-text">Resumen del pedido</p>
-                <p><span>Subtotal:</span> <span>2,980 MXM</span></p>
-                <p><span>Envío:</span> <span>350 MXM</span></p>
-                <p><span>Impuesto:</span> <span>411 MXM</span></p><br>
-                <p class="bold-text"><span>TOTAL:</span> <span>3,330 MXM</span></p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <hr>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="payment-delivery">
-                <p class="bold-text">Método de procesamiento de pagos:</p>
-                <p>Stripe</p><br>
-                <p class="bold-text">Forma de entrega:</p>
-                <p>Envío estándar - Todo México</p><br>
-                <p class="bold-text">Dirección de envío:</p>
-                <p>Michelle Gutiérrez - Martí</p>
-                <p>Av. Terranova</p>
-                <p>Colonia Providencia</p>
-                <p>Guadalajara, Jalisco. 44630.</p>
-                <p>+1 (619) 632-2002</p>
-            </td>
+            <td colspan="2"><img src="{{ 'soyconspiracion.png' | asset_url }}" alt="#SoyConspiración" class="soyconspiracion"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -268,7 +179,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><img src="{{ asset('src/img/image.png') }}" alt="Banner" class="footer-banner"></td>
+            <td colspan="2"><img src="{{ 'banner.png' | asset_url }}" alt="Banner" class="footer-banner"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -328,5 +239,4 @@
         </tr>
     </table>
 </body>
-
 </html>

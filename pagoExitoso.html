@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orden conspiración</title>
-    <style>
-        body {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ email_title }}</title>
+  <style>
+    body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             padding: 20px;
@@ -47,23 +46,22 @@
             font-size: 12px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
+        .confirmation p {
+            margin: 10px 50px;
+        }
+
+        .soyconspiracion {
+            display: block;
+            margin: 30px auto 30px auto;
+            width: 100px;
+            height: auto;
+        }
 
         .order-summary,
         .payment-delivery {
             margin: 25px 50px 20px 50px;
             text-align: center;
             font-size: 12px;
-        }
-
-        .btn-track {
-            display: inline-block;
-            background-color: black;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            margin: 10px 0;
-            font-size: 12px;
-            border-radius: 20px;
         }
 
         .order-details {
@@ -128,85 +126,40 @@
             margin-top: 1px;
             text-align: center;
         }
-    </style>
+  </style>
 </head>
-
 <body>
-    <table>
-        <tr class="header">
-            <td colspan="2"><img src="{{ asset('src/img/order.png') }}" alt="Orden en camino"></td>
-        </tr>
+  <table>
+    <tr class="header">
+      <td colspan="2"><img src="{{ 'pagoExitoso.png' | asset_url }}" alt="Pago exitoso"></td>
+    </tr>
+    <tr><td colspan="2"><hr></td></tr>
+    <tr>
+      <td colspan="2" class="order-number bold-text">
+        ORDEN NO. {{ order.name }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="confirmation">
+        <p>Hola {{ customer.first_name }}</p><br>
+        <p>Te confirmamos que hemos recibido tu pago. No necesitas hacer nada más por ahora, solo queremos mantenerte informada.</p>
+        <p>Pronto te enviaremos una actualización sobre el estado de tu pedido y su envío.</p>
+        <p>Si tienes alguna pregunta o necesitas asistencia, estamos aquí para ayudarte.</p>
+        <p>Gracias por ser parte de la Conspiración</p><br>
+        <p>Con cariño</p>
+        <p>Equipo Conspiración</p>
         <tr>
-            <td colspan="2">
-                <hr>
-            </td>
+            <td colspan="2"><img src="{{ 'soyconspiracion.png' | asset_url }}" alt="#SoyConspiración" class="soyconspiracion"></td>
         </tr>
-        <tr>
-            <td colspan="2" class="order-number bold-text">ORDEN NO. 57231</td>
-        </tr>
-        <tr>
-            <td colspan="2" class="confirmation">
-                <p>Hola Michelle</p><br>
-                <p class="bold-text">¿Lista para que pregunten de dónde es tu vestido?</p>
-                <p>Tu pedido ya ha sido enviado y pronto lo recibirás.</p>
-                <a href="#" class="btn-track">Rastrear mi pedido</a>
-                <p>Se parte de la Conspiración</p>
-                <p>Sube una foto a Instagram con tu vestido de Conspiración utilizando el hashtag #SoyConspiracion.</p>
-                <p>¡Nos encanta ver lo espectacular que te ves!</p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <hr>
-            </td>
-        </tr>
-        <tr class="order-details">
-            <td><img src="{{ asset('src/img/dress.png') }}" alt="Vestido" class="order-image"></td>
-            <td class="order-info">
-                <p>Vestido de satín, Cherry</p>
-                <p>2,980 MXM x1</p>
-                <p>Rojo / XS (2) Nuevo</p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="order-summary">
-                <p class="bold-text">Resumen del pedido</p>
-                <p><span>Subtotal:</span> <span>2,980 MXM</span></p>
-                <p><span>Envío:</span> <span>350 MXM</span></p>
-                <p><span>Impuesto:</span> <span>411 MXM</span></p><br>
-                <p class="bold-text"><span>TOTAL:</span> <span>3,330 MXM</span></p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <hr>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="payment-delivery">
-                <p class="bold-text">Método de procesamiento de pagos:</p>
-                <p>Stripe</p><br>
-                <p class="bold-text">Forma de entrega:</p>
-                <p>Envío estándar - Todo México</p><br>
-                <p class="bold-text">Dirección de envío:</p>
-                <p>Michelle Gutiérrez - Martí</p>
-                <p>Av. Terranova</p>
-                <p>Colonia Providencia</p>
-                <p>Guadalajara, Jalisco. 44630.</p>
-                <p>+1 (619) 632-2002</p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <hr>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <table class="footer-icons-table">
-                    <tr>
-                        <td>
-                            <p><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+      </td>
+    </tr>
+    <tr><td colspan="2"><hr></td></tr>
+    <tr>
+      <td colspan="2">
+        <table class="footer-icons-table">
+          <tr>
+            <td>
+              <p><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_41_299)">
                                         <path
@@ -218,12 +171,11 @@
                                             <rect width="20" height="20" fill="white" />
                                         </clipPath>
                                     </defs>
-                                </svg>
-                            </p>
-                            <p>Entrega express a todo el mundo</p>
-                        </td>
-                        <td>
-                            <p><svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                </svg></p>
+              <p>Entregas express a todo el mundo</p>
+            </td>
+            <td>
+              <p><svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_41_301)">
                                         <path
@@ -244,12 +196,11 @@
                                             <rect width="17" height="17" fill="white" />
                                         </clipPath>
                                     </defs>
-                                </svg>
-                            </p>
-                            <p>+52 (33) 3823-2468<br>care@conspiracionmoda.com</p>
-                        </td>
-                        <td>
-                            <p><svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                </svg></p>
+              <p>+52 (33) 3823-2468<br>care@conspiracionmoda.com</p>
+            </td>
+            <td>
+              <p><svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_41_307)">
                                         <path
@@ -262,18 +213,19 @@
                                                 transform="translate(0.434082 0.678711)" />
                                         </clipPath>
                                     </defs>
-                                </svg>
-                            </p>
-                            <p>Si no te gusta o no te queda te devolvemos tu dinero.<br>¡Así de fácil!</p>
-                        </td>
-                    </tr>
-                </table>
+                                </svg></p>
+              <p>Si no te gusta o no te queda te devolvemos tu dinero.<br>¡Así de fácil!</p>
             </td>
-        </tr>
-        <tr>
-            <td colspan="2"><img src="{{ asset('src/img/image.png') }}" alt="Banner" class="footer-banner"></td>
-        </tr>
-        <tr>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><img src="{{ 'banner.png' | asset_url }}" alt="Banner" class="footer-banner">
+        </td>
+    </tr>
+    <tr>
             <td colspan="2">
                 <table class="footer-social-icons">
                     <tr>
@@ -329,6 +281,6 @@
                 <p>Terranova 1421, Prados Providencia, Guadalajara Jalisco, México 44630.</p>
             </td>
         </tr>
-    </table>
+  </table>
 </body>
 </html>

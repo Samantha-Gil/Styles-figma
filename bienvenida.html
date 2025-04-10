@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pago exitoso</title>
+    <title>{{ email_title }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,69 +30,26 @@
             max-width: 100%;
         }
 
-        .order-number {
-            text-align: right;
-            font-size: 10px;
-            margin: 10px 30px 0 0;
-            padding-right: 30px;
-        }
-
-        .bold-text {
-            font-weight: bold;
-        }
-
         .confirmation {
-            margin: 25px 50px 20px 50px;
             text-align: center;
             font-size: 12px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
+
         .confirmation p {
-            margin: 10px 50px;
+            margin: 15px 30px 0px 30px;
         }
 
-        .soyconspiracion {
-            display: block;
-            margin: 30px auto 30px auto;
-            width: 100px;
-            height: auto;
+        .confirmation p:last-child,
+        .confirmation p:nth-last-child(2),
+        .confirmation p:nth-last-child(3) {
+            margin-top: 0px;
+            margin-bottom: 5px;
         }
 
-        .order-summary,
-        .payment-delivery {
-            margin: 25px 50px 20px 50px;
-            text-align: center;
-            font-size: 12px;
-        }
-
-        .order-details {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 20px 30px;
-            text-align: left;
-        }
-
-        .order-image {
-            width: auto;
-            height: 140px;
-            border: 1px solid #ccc;
-            border-radius: 15px;
-            padding: 0 20px;
-        }
-
-        .order-info {
-            flex-grow: 1;
-            margin-left: 10px;
-            font-size: 12px;
-        }
-
-        .order-summary p,
-        .payment-delivery p {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 30px;
-        }
+        .confirmation p:first-child {
+            margin-top: 15px;
+        }        
 
         hr {
             width: 90%;
@@ -133,7 +90,7 @@
 <body>
     <table>
         <tr class="header">
-            <td colspan="2"><img src="{{ asset('src/img/pagoExitoso.png') }}" alt="Pago exitoso"></td>
+            <td colspan="2"><img src="{{ 'gracias.png' | asset_url }}" alt="Gracias"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -141,21 +98,16 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2" class="order-number bold-text">ORDEN NO. 57231</td>
-        </tr>
-        <tr>
             <td colspan="2" class="confirmation">
-                <p>Hola Michelle</p><br>
-                <p>Te confirmamos que hemos recibido tu pago. No necesitas hacer nada más por ahora, solo queremos mantenerte informada.</p>
-                <p>Pronto te enviaremos una actualización sobre el estado de tu pedido y su envío.</p>
-                <p>Si tienes alguna pregunta o necesitas asistencia, estamos aquí para ayudarte.</p>
-                <p>Gracias por ser parte de la Conspiración</p><br>
-                <p>Con cariño</p>
-                <p>Equipo Conspiración</p>
+                <p>Hola {{ customer.first_name }}</p><br>
+                <p>Hace 13 años, este sueño comenzó con la misión de unirnos en una conspiración donde cada mujer pueda sentirse segura, radiante y espectacular en cada ocasión especial.</p>
+                <p>Aquí, cada prenda no es solo un vestido, es una expresión de personalidad, estilo y empoderamiento.</p>
+                <p>Prepárate para la pregunta inevitable: “¿De dónde es tu vestido?”</p>
+                <p>Porque en Conspiración Moda no solo te vestimos para un evento, sino que te acompañamos en cada momento especial con prendas que reflejan tu esencia.</p><br><br>
+                <p>Con cariño,</p>
+                <p>Michelle Gutiérrez-Marti</p>
+                <p>Fundadora y CEO de Conspiración Moda</p>
             </td>
-        </tr>
-        <tr>
-            <td colspan="2"><img src="{{ asset('src/img/soyconspiracion.png') }}" alt="#SoyConspiración" class="soyconspiracion"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -232,7 +184,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><img src="{{ asset('src/img/image.png') }}" alt="Banner" class="footer-banner"></td>
+            <td colspan="2"><img src="{{ 'banner.png' | asset_url }}" alt="Banner" class="footer-banner"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -292,5 +244,4 @@
         </tr>
     </table>
 </body>
-
 </html>
