@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ email_title }}</title>
-  <style>
-    body {
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ email_title }}</title>
+    <style>
+        body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             padding: 20px;
@@ -127,80 +128,112 @@
             margin-top: 1px;
             text-align: center;
         }
-  </style>
+    </style>
 </head>
+
 <body>
-  <table>
-    <tr class="header">
-      <td colspan="2"><img src="{{ 'order.png' | asset_url }}" alt="Orden en camino"></td>
-    </tr>
-    <tr><td colspan="2"><hr></td></tr>
-    <tr>
-      <td colspan="2" class="order-number bold-text">
-        ORDEN NO. {{ order.name }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" class="confirmation">
-        <p>Hola {{ customer.first_name }}</p><br>
-        <p class="bold-text">¿Lista para que pregunten de dónde es tu vestido?</p>
-        <p>Tu pedido ya ha sido enviado y pronto lo recibirás.</p>
-        <a href="{{ order.status_url }}" class="btn-track">Rastrear mi pedido</a>
-        <p>Sé parte de la Conspiración</p>
-        <p>Sube una foto a Instagram con tu vestido de Conspiración utilizando el hashtag #SoyConspiracion.</p>
-        <p>¡Nos encanta ver lo espectacular que te ves!</p>
-      </td>
-    </tr>
-    <tr><td colspan="2"><hr></td></tr>
+    <table>
+        <tr class="header">
+            <td colspan="2"><img src="{{ 'ordenCamino.png' | file_url }}" alt="Orden en camino"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="order-number bold-text">
+                ORDEN NO. {{ order.name }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="confirmation">
+                <p>Hola {{ customer.first_name }}</p><br>
+                <p class="bold-text">¿Lista para que pregunten de dónde es tu vestido?</p>
+                <p>Tu pedido ya ha sido enviado y pronto lo recibirás.</p>
+                <a href="{{ order.status_url }}" class="btn-track">Rastrear mi pedido</a>
+                <p>Sé parte de la Conspiración</p>
+                <p>Sube una foto a Instagram con tu vestido de Conspiración utilizando el hashtag #SoyConspiracion.</p>
+                <p>¡Nos encanta ver lo espectacular que te ves!</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr>
+            </td>
+        </tr>
 
-    {% for line in order.line_items %}
-    <tr class="order-details">
-      <td><img src="{{ line.image | img_url: 'medium' }}" alt="Vestido" class="order-image" /></td>
-      <td class="order-info">
-        <p>{{ line.title }}</p>
-        <p>{{ line.price | money }} x{{ line.quantity }}</p>
-        <p>{{ line.variant.title }}</p>
-      </td>
-    </tr>
-    {% endfor %}
+        {% assign subtotal = 0 %}
 
-    <tr>
-      <td colspan="2" class="order-summary">
-        <p class="bold-text">Resumen del pedido</p>
-        <p><span>Subtotal:</span> <span>{{ order.subtotal_price | money }}</span></p>
-        <p><span>Envío:</span> <span>{{ order.shipping_price | money }}</span></p>
-        <p><span>Impuesto:</span> <span>{{ order.total_tax | money }}</span></p><br>
-        <p class="bold-text"><span>TOTAL:</span> <span>{{ order.total_price | money }}</span></p>
-      </td>
-    </tr>
+        {% for line in order.line_items %}
+        <tr class="order-details">
+            <td><img src="{{ line.image | img_url: 'medium' }}" alt="Vestido" class="order-image" /></td>
+            <td class="order-info">
+                <p>{{ line.title }}</p>
+                <p>{{ line.price | money }} x{{ line.quantity }}</p>
+                <p>{{ line.variant.title }}</p>
+            </td>
+        </tr>
 
-    <tr><td colspan="2"><hr></td></tr>
+        {% assign line_total = line.price | times: line.quantity %}
+        {% assign subtotal = subtotal | plus: line_total %}
+        {% endfor %}
 
-    <tr>
-      <td colspan="2" class="payment-delivery">
-        <p class="bold-text">Método de procesamiento de pagos:</p>
-        <p>{{ order.gateway }}</p><br>
 
-        <p class="bold-text">Forma de entrega:</p>
-        <p>{{ order.shipping_method.title }}</p><br>
+        <tr>
+            <td colspan="2" class="order-summary">
+                <p class="bold-text">Resumen del pedido</p>
+                <p><span>Subtotal:</span> <span>{{ subtotal | money }}</span></p>
+                <p><span>Envío:</span> <span>{{ order.shipping_price | money }}</span></p>
 
-        <p class="bold-text">Dirección de envío:</p>
-        <p>{{ shipping_address.name }}</p>
-        <p>{{ shipping_address.address1 }}</p>
-        <p>{{ shipping_address.city }}, {{ shipping_address.province }}</p>
-        <p>{{ shipping_address.country }} {{ shipping_address.zip }}</p>
-        <p>{{ shipping_address.phone }}</p>
-      </td>
-    </tr>
+                {% assign total = subtotal | plus: order.shipping_price %}
 
-    <tr><td colspan="2"><hr></td></tr>
+                {% for tax_line in order.tax_lines %}
+                <p><span>{{ tax_line.title }}:</span> <span>{{ tax_line.price | money }}</span></p>
+                {% assign total = total | plus: tax_line.price %}
+                {% endfor %}
 
-    <tr>
-      <td colspan="2">
-        <table class="footer-icons-table">
-          <tr>
-            <td>
-              <p><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                <p class="bold-text"><span>TOTAL:</span> <span>{{ total | money }}</span></p>
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <td colspan="2">
+                <hr>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" class="payment-delivery">
+                <p class="bold-text">Método de procesamiento de pagos:</p>
+                <p>{{ order.gateway }}</p><br>
+
+                <p class="bold-text">Forma de entrega:</p>
+                <p>{{ order.shipping_method.title }}</p><br>
+
+                <p class="bold-text">Dirección de envío:</p>
+                <p>{{ shipping_address.name }}</p>
+                <p>{{ shipping_address.address1 }}</p>
+                <p>{{ shipping_address.city }}, {{ shipping_address.province }}</p>
+                <p>{{ shipping_address.country }} {{ shipping_address.zip }}</p>
+                <p>{{ shipping_address.phone }}</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <hr>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <table class="footer-icons-table">
+                    <tr>
+                        <td>
+                            <p><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_41_299)">
                                         <path
@@ -213,10 +246,10 @@
                                         </clipPath>
                                     </defs>
                                 </svg></p>
-              <p>Entregas express a todo el mundo</p>
-            </td>
-            <td>
-              <p><svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                            <p>Entregas express a todo el mundo</p>
+                        </td>
+                        <td>
+                            <p><svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_41_301)">
                                         <path
@@ -238,10 +271,10 @@
                                         </clipPath>
                                     </defs>
                                 </svg></p>
-              <p>+52 (33) 3823-2468<br>care@conspiracionmoda.com</p>
-            </td>
-            <td>
-              <p><svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                            <p>+52 (33) 3823-2468<br>care@conspiracionmoda.com</p>
+                        </td>
+                        <td>
+                            <p><svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_41_307)">
                                         <path
@@ -255,18 +288,18 @@
                                         </clipPath>
                                     </defs>
                                 </svg></p>
-              <p>Si no te gusta o no te queda te devolvemos tu dinero.<br>¡Así de fácil!</p>
+                            <p>Si no te gusta o no te queda te devolvemos tu dinero.<br>¡Así de fácil!</p>
+                        </td>
+                    </tr>
+                </table>
             </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
+        </tr>
 
-    <tr>
-        <td colspan="2"><img src="{{ asset('src/img/image.png') }}" alt="Banner" class="footer-banner">
-        </td>
-    </tr>
-    <tr>
+        <tr>
+            <td colspan="2"><img src="{{ 'banner.png' | file_url }}" alt="Banner" class="footer-banner">
+            </td>
+        </tr>
+        <tr>
             <td colspan="2">
                 <table class="footer-social-icons">
                     <tr>
@@ -322,6 +355,7 @@
                 <p>Terranova 1421, Prados Providencia, Guadalajara Jalisco, México 44630.</p>
             </td>
         </tr>
-  </table>
+    </table>
 </body>
+
 </html>

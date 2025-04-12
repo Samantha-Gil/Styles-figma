@@ -49,7 +49,7 @@
 
         .confirmation p:first-child {
             margin-top: 15px;
-        }        
+        }
 
         hr {
             width: 90%;
@@ -90,7 +90,7 @@
 <body>
     <table>
         <tr class="header">
-            <td colspan="2"><img src="{{ 'gracias.png' | asset_url }}" alt="Gracias"></td>
+            <td colspan="2"><img src="{{ 'gracias.png' | file_url }}" alt="Gracias"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -100,10 +100,13 @@
         <tr>
             <td colspan="2" class="confirmation">
                 <p>Hola {{ customer.first_name }}</p><br>
-                <p>Hace 13 años, este sueño comenzó con la misión de unirnos en una conspiración donde cada mujer pueda sentirse segura, radiante y espectacular en cada ocasión especial.</p>
-                <p>Aquí, cada prenda no es solo un vestido, es una expresión de personalidad, estilo y empoderamiento.</p>
+                <p>Hace 13 años, este sueño comenzó con la misión de unirnos en una conspiración donde cada mujer pueda
+                    sentirse segura, radiante y espectacular en cada ocasión especial.</p>
+                <p>Aquí, cada prenda no es solo un vestido, es una expresión de personalidad, estilo y empoderamiento.
+                </p>
                 <p>Prepárate para la pregunta inevitable: “¿De dónde es tu vestido?”</p>
-                <p>Porque en Conspiración Moda no solo te vestimos para un evento, sino que te acompañamos en cada momento especial con prendas que reflejan tu esencia.</p><br><br>
+                <p>Porque en Conspiración Moda no solo te vestimos para un evento, sino que te acompañamos en cada
+                    momento especial con prendas que reflejan tu esencia.</p><br><br>
                 <p>Con cariño,</p>
                 <p>Michelle Gutiérrez-Marti</p>
                 <p>Fundadora y CEO de Conspiración Moda</p>
@@ -184,7 +187,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><img src="{{ 'banner.png' | asset_url }}" alt="Banner" class="footer-banner"></td>
+            <td colspan="2"><img src="{{ 'banner.png' | file_url }}" alt="Banner" class="footer-banner"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -244,4 +247,5 @@
         </tr>
     </table>
 </body>
+
 </html>

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ email_title }}</title>
-    <style>
-        body {
+  <title>{{ email_title }}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
+  <style>
+    .button__cell { background: {{ shop.email_accent_color }}; }
+    a, a:hover, a:active, a:visited { color: {{ shop.email_accent_color }}; }
+    body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             padding: 20px;
@@ -79,13 +81,57 @@
             margin-top: 1px;
             text-align: center;
         }
-    </style>
+  </style>
 </head>
 
 <body>
-    <table>
+  <table class="body">
+    <tr>
+      <td>
+        <table class="header row">
+          <tr>
+            <td class="header__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
+                      <table class="row">
+                        <tr>
+                          <td class="shop-name__cell">
+                            {%- if shop.email_logo_url %}
+                              <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}">
+                            {%- else %}
+                              <h1 class="shop-name__text">
+                                <a href="{{shop.url}}">{{ shop.name }}</a>
+                              </h1>
+                            {%- endif %}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </table>
+
+        <table >
+          <tr>
+            <td >
+              <center>
+                <table >
+                  <tr>
+                    <td>
+                      <h2>{{ email_title }}</h2>
+                      {% if custom_message != blank %}
+                        <p>{{ custom_message }}</p>
+                      {% else %}
+                        <p>{{ email_body }}</p>
+                      {% endif %}
+                      <table>
         <tr class="header">
-            <td colspan="2"><img src="{{ 'welcome.png' | asset_url }}" alt="Welcome"></td>
+            <td colspan="2"><img src="{{ 'welcome.png' | file_url }}" alt="Welcome"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -102,14 +148,42 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><img src="{{ 'soyconspiracion.png' | asset_url }}" alt="#SoyConspiración" class="soyconspiracion"></td>
+            <td colspan="2"><img src="{{ 'soyconspiracion.png' | file_url }}" alt="#SoyConspiración" class="soyconspiracion"></td>
         </tr>
-        <tr>
-            <td colspan="2">
-                <hr>
+    </table>
+                      <table class="row actions">
+                        <tr>
+                          <td class="empty-line">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="actions__cell">
+                            <table class="button main-action-cell">
+                              <tr>
+                                <td class="button__cell">
+                                  <a href="{{ customer.account_activation_url }}" class="button__text">Activar cuenta</a>
+                                </td>
+                              </tr>
+                            </table>
+                            {% if shop.url %}
+                              <table class="link secondary-action-cell">
+                                <tr>
+                                  <td class="link__cell">o <a href="{{ shop.url }}">Visita nuestra tienda</a></td>
+                                </tr>
+                              </table>
+                            {% endif %}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </center>
             </td>
-        </tr>
-        <tr>
+          </tr>
+        </table>
+
+        <table class="row footer">
+          <tr>
             <td colspan="2">
                 <table class="footer-icons-table">
                     <tr>
@@ -179,7 +253,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><img src="{{ 'banner.png' | asset_url }}" alt="Banner" class="footer-banner"></td>
+            <td colspan="2"><img src="{{ 'banner.png' | file_url }}" alt="Banner" class="footer-banner"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -237,6 +311,27 @@
                 <p>Terranova 1421, Prados Providencia, Guadalajara Jalisco, México 44630.</p>
             </td>
         </tr>
-    </table>
+          <tr>
+            <td class="footer__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
+                      <p class="disclaimer__subtext">
+                        Si tienes alguna pregunta, responde a este correo o contáctanos en 
+                        <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </table>
+
+        <img src="{{ 'notifications/spacer.png' | shopify_asset_url }}" class="spacer" height="1" />
+      </td>
+    </tr>
+  </table>
 </body>
 </html>
